@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Apply CORS for all routes
 app.use(cors({
-    origin: "https://ecom-azcn5qeof-rohanawans-projects.vercel.app", // Frontend origin
+    origin: "*", // Frontend origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
 }));
