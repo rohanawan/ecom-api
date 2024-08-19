@@ -18,33 +18,28 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-  cors({
-    origin: "https://ecom-app-ruddy.vercel.app", // Frontend origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+// Apply CORS for all routes
+app.use(cors());
 
-// Custom CORS Middleware
+// Custom CORS Middleware for specific route handling
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://ecom-app-ruddy.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET,POST, PUT,DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  
+  res.setHeader("Access-Control-Allow-Origin", "https://ecom-app-ruddy.vercel.app");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
   if (req.method === "OPTIONS") {
-    return res.status(200).end(); // Ensure that the preflight request is successful
+    return res.sendStatus(200);
   }
-  
+
   next();
 });
 
 // Use Routes
-app.use("", userRoutes); // Update the base path to avoid conflicting with static assets
-app.use("", itemRoutes);
-app.use("", cartRoutes);
-app.use("", orderRoutes);
+app.use("/api/v1", userRoutes); 
+app.use("/api/v1", itemRoutes);
+app.use("/api/v1", cartRoutes);
+app.use("/api/v1", orderRoutes);
 
 // Error Middleware
 app.use(errorMiddleware);
