@@ -18,25 +18,25 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Properly configure CORS
-app.use(
-  cors({
-    origin: "https://ecom-d4ehhbk4x-rohanawans-projects.vercel.app", // Frontend origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-    optionsSuccessStatus: 200, // For older browsers
-  })
-);
-
-// Ensure the preflight request (OPTIONS) is handled properly
-app.options("*", cors());
+// Custom CORS Middleware
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://ecom-d4ehhbk4x-rohanawans-projects.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET,POST, PUT,DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  
+  if (req.method === "OPTIONS") {
+    return res.status(200).end(); // Ensure that the preflight request is successful
+  }
+  
+  next();
+});
 
 // Use Routes
-app.use("", userRoutes);
-app.use("", itemRoutes);
-app.use("", cartRoutes);
-app.use("", orderRoutes);
+app.use("/api/v1", userRoutes); // Update the base path to avoid conflicting with static assets
+app.use("/api/v1", itemRoutes);
+app.use("/api/v1", cartRoutes);
+app.use("/api/v1", orderRoutes);
 
 // Error Middleware
 app.use(errorMiddleware);
