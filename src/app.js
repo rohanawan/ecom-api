@@ -18,6 +18,14 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(
+  cors({
+    origin: "https://ecom-app-ruddy.vercel.app", // Frontend origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
 // Custom CORS Middleware
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "https://ecom-app-ruddy.vercel.app");
