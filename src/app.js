@@ -21,20 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Apply CORS for all routes
 app.use(cors());
 
-// Custom CORS Middleware for specific route handling
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://ecom-app-ruddy.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
-  next();
-});
-
 // Use Routes
 app.use("/api/v1", userRoutes); 
 app.use("/api/v1", itemRoutes);
