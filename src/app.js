@@ -19,7 +19,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Apply CORS for all routes
-app.use(cors());
+app.use(cors({
+    origin: "https://ecom-azcn5qeof-rohanawans-projects.vercel.app", // Frontend origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+}));
 
 // Use Routes
 app.use("/api/v1", userRoutes); 
