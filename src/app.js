@@ -17,22 +17,20 @@ const app = express();
 // Parsing
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Properly configure CORS
 app.use(
   cors({
-    origin: "https://ecom-d4ehhbk4x-rohanawans-projects.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://ecom-d4ehhbk4x-rohanawans-projects.vercel.app", // Frontend origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
+    optionsSuccessStatus: 200, // For older browsers
   })
 );
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // or specify your frontend origin instead of '*'
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+
+// Ensure the preflight request (OPTIONS) is handled properly
+app.options("*", cors());
 
 // Use Routes
 app.use("", userRoutes);
