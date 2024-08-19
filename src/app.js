@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Custom CORS Middleware
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://ecom-d4ehhbk4x-rohanawans-projects.vercel.app");
+  res.header("Access-Control-Allow-Origin", "https://ecom-app-ruddy.vercel.app");
   res.header("Access-Control-Allow-Methods", "GET,POST, PUT,DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
