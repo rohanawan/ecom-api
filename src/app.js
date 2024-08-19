@@ -41,10 +41,10 @@ app.use((req, res, next) => {
 });
 
 // Use Routes
-app.use("/api/v1", userRoutes); // Update the base path to avoid conflicting with static assets
-app.use("/api/v1", itemRoutes);
-app.use("/api/v1", cartRoutes);
-app.use("/api/v1", orderRoutes);
+app.use("", userRoutes); // Update the base path to avoid conflicting with static assets
+app.use("", itemRoutes);
+app.use("", cartRoutes);
+app.use("", orderRoutes);
 
 // Error Middleware
 app.use(errorMiddleware);
